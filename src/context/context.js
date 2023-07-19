@@ -1,11 +1,12 @@
 import React, { useReducer, createContext } from 'react'
 import ContextReducer from './ContextReducer';
-const initialState = [];
+
+const initialState = JSON.parse(localStorage.getItem('transactions')) || [];
 
 export const ExpenseTrackerContext = createContext(initialState);
 
 export const Provider = ({ children }) => {
-    const [transactions, dispatch] = useReducer(ContextReducer, []);
+    const [transactions, dispatch] = useReducer(ContextReducer, initialState);
 
         
     // Action creators
