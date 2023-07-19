@@ -10,7 +10,6 @@ const useTransactions = (title) => {
     const transactionsPerType = transactions.filter((t) => t.type === title);
     const total = transactionsPerType.reduce((acc, currVal) => acc += currVal.amount, 0);
     const categories = title === 'Income' ? incomeCategories : expenseCategories;
-    console.log({ transactionsPerType, total, categories });
 
     transactionsPerType.forEach((t) => {
         const category = categories.find((c) => c.type === t.category)
@@ -21,12 +20,11 @@ const useTransactions = (title) => {
     const filteredCategories = categories.filter((category) => category.amount > 0);
 
     const chartData = {
+        labels: filteredCategories.map((c) => c.type),
         datasets: [{
             data: filteredCategories.map((c) => c.amount),
             backgroundColor: filteredCategories.map((c) => c.color)
         }],
-
-        labels: filteredCategories.map((c) => c.type)
     }
 
     return { total, chartData }

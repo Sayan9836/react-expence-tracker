@@ -5,11 +5,11 @@ import App from './App';
 import { Provider } from './context/context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </Provider>
+    <Provider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Provider>
 );
 
 

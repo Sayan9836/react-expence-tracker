@@ -1,23 +1,26 @@
 import React, { useContext } from 'react'
-import { List as MUIList, ListItem, ListItemText, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, Slide } from '@mui/material'
+import { List as MUIList, ListItem, ListItemText, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, Slide, useTheme } from '@mui/material'
 import { Delete, MoneyOff } from '@material-ui/icons'
 import { ExpenseTrackerContext } from '../../../context/context'
-import useStyles from './Styles'
+import { green, red } from '@mui/material/colors';
+import useStyles from './styles';
+
 const List = () => {
+    const { deleteTransaction, transactions } = useContext(ExpenseTrackerContext);
+    console.log(transactions);
     const classes = useStyles();
-    const { deleteTransaction,transactions } = useContext(ExpenseTrackerContext);
     return (
-        <MUIList dense={false} className={classes.list}>
+        <MUIList dense={false} className={classes.list} >
             {
                 transactions.map((transaction) => (
                     <Slide direction='down' in mountOnEnter unmountOnExit key={transaction.id}>
                         <ListItem>
                             <ListItemAvatar>
-                                <Avatar className={transaction.type === 'Income' ? classes.avatarIncome : classes.avatarExpense}>
+                                <Avatar sx={{ bgcolor: ` ${transaction.type === 'Income' ? green[500] : red[300]}`}}>
                                     <MoneyOff />
                                 </Avatar>
                             </ListItemAvatar>
-                            <ListItemText primary={transaction.category} secondary={`$${transaction.amount}-${transaction.date}`}></ListItemText>
+                            <ListItemText primary={transaction.category} secondary={`$${transaction.amount}__${transaction.date}`}></ListItemText>
                             <ListItemSecondaryAction>
                                 <IconButton edge="end" aria-label='delete' onClick={() => deleteTransaction(transaction.id)}>
                                     <Delete />
